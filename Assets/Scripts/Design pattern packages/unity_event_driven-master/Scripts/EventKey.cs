@@ -4,4 +4,6 @@
     STARTGAME,
     ENDGAME,
     UPDATE_UI,
+    ONUSEMANA,
+    ONREGETMANA,
 }

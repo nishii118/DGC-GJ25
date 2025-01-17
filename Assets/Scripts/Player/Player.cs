@@ -13,7 +13,12 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        MovingAndJumping();
+        // MovingAndJumping();
+        if (isUnderWater) {
+            Messenger.Broadcast(EventKey.ONREGETMANA);
+        } else {
+            Messenger.Broadcast(EventKey.ONUSEMANA);
+        }
     }
 
     private void MovingAndJumping()
@@ -37,4 +42,6 @@ public class Player : MonoBehaviour
     {
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
     }
+
+
 }
