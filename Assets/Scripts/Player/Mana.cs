@@ -38,7 +38,7 @@ public class Mana : MonoBehaviour
             RegetMana();
         }
 
-        Debug.Log("Mana: " + manaValue);
+        // Debug.Log("Mana: " + manaValue);
     }
 
     private void UseMana(float amount)
@@ -47,6 +47,11 @@ public class Mana : MonoBehaviour
         {
             manaValue -= manaRegenRate * Time.deltaTime; // Use mana
             manaValue = Mathf.Max(manaValue, 0); // Clamp to 0
+        }
+
+        if (manaValue <= 0)
+        {
+            Messenger.Broadcast(EventKey.ONBREAKBUBBLE);
         }
     }
 
