@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private bool isUnderWater = true;
     [SerializeField] private bool canMove = true;
+    private bool isFalling = false;
 
     // Update is called once per frame
 
@@ -26,12 +27,15 @@ public class Player : MonoBehaviour
     void Update()
     {
         if (canMove) MovingAndJumping();
-        if (isUnderWater) {
+        if (isUnderWater)
+        {
             Messenger.Broadcast(EventKey.ONREGETMANA);
-        } else {
+        }
+        else
+        {
             Messenger.Broadcast(EventKey.ONUSEMANA);
         }
-
+        // if (isFalling) MovingDown();
         // MovingAndJumping();
     }
 
@@ -45,7 +49,7 @@ public class Player : MonoBehaviour
         float jump = isUnderWater ? Input.GetAxis("Jump") : 0f; // Jump only applies underwater
         // float horizontal = isUnderWater ? 1f : 0.5f;
         // Combine horizontal and vertical/jump movement
-        Debug.Log("Vertical: " + vertical + " Jump: " + jump);
+        // Debug.Log("Vertical: " + vertical + " Jump: " + jump);
         Vector2 movement = new Vector2(0, (vertical * speedMove) + (jump * jumpForce));
         rb2d.velocity = movement;
 
@@ -53,6 +57,11 @@ public class Player : MonoBehaviour
         // CameraFollowPlayer();
     }
 
+    private void MovingDown()
+    {
+        Vector2 movement = new Vector2(0, -1 * jumpForce);
+        rb2d.velocity = movement;
+    }
     private void CameraFollowPlayer()
     {
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
@@ -62,14 +71,19 @@ public class Player : MonoBehaviour
     {
         // isUnderWater = false;
         canMove = false;
+        SetDynamicRigidbody();
     }
 
-
+    private void SetMoveAble()
+    {
+        canMove = true;
+    }
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.tag == "Water")
         {
             isUnderWater = false;
+            isFalling = true;
         }
     }
 
@@ -77,7 +91,58 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Water")
         {
+            Debug.Log("Underwater");
             isUnderWater = true;
+            // SetStaticRigiBody();
+            SetKinematicRigidbody();
+            if (isFalling)StartCoroutine(MoveDownForDuration(0.5f));
+
+
         }
+    }
+
+    private IEnumerator MoveDownForDuration(float duration)
+    {
+        float elapsedTime = 0f;
+        float initialSpeed = 5f; // Tốc độ ban đầu
+        float targetSpeed = 0f;         // Tốc độ cuối cùng (chậm dần về 0)
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+
+            // Tính tốc độ hiện tại với Lerp để giảm dần
+            float currentSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration);
+
+            // Áp dụng vận tốc cho Rigidbody2D
+            rb2d.velocity = new Vector2(0, -currentSpeed);
+
+            yield return null; // Chờ tới frame tiếp theo
+        }
+
+        // Sau khi hết thời gian, dừng chuyển động
+        rb2d.velocity = Vector2.zero;
+        Debug.Log("Stop Moving Down");
+    }
+    private void SetDynamicRigidbody()
+    {
+
+        rb2d.bodyType = RigidbodyType2D.Dynamic;
+        rb2d.gravityScale = 1.6f;
+    }
+
+    private void SetKinematicRigidbody()
+    {
+        rb2d.bodyType = RigidbodyType2D.Kinematic;
+        // rb2d.velocity = Vector2.zero;
+        // Debug.Log("Rigidbody set to Kinematic");
+        // Debug.Log("velocity: " + rb2d.velocity);
+
+        SetMoveAble();
+    }
+
+    private void SetStaticRigiBody()
+    {
+        rb2d.bodyType = RigidbodyType2D.Static;
     }
 }

@@ -5,9 +5,11 @@ using UnityEngine;
 public class Mana : MonoBehaviour
 {
     [SerializeField] float maxValueMana = 100f;
-    [SerializeField] float manaRegenRate = 1f;
+    [SerializeField] float manaRegenRate = 10f;
     private float manaValue;
     [SerializeField] private bool isUseMana = false;
+    [SerializeField] private bool isManaEmpty = false;
+    // [SerializeField] private bool canBreakeBubble = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +20,14 @@ public class Mana : MonoBehaviour
     {
         Messenger.AddListener(EventKey.ONUSEMANA, OnUseMana);
         Messenger.AddListener(EventKey.ONREGETMANA, OnRegetMana);
+        // Messenger.AddListener(EventKey.ONBREAKBUBBLEABLE, OnBreakable);
     }
 
     void OnDisable()
     {
         Messenger.RemoveListener(EventKey.ONUSEMANA, OnUseMana);
         Messenger.RemoveListener(EventKey.ONREGETMANA, OnRegetMana);
+        // Messenger.RemoveListener(EventKey.ONBREAKBUBBLEABLE, OnBreakable);
     }
 
     // Update is called once per frame
@@ -38,20 +42,27 @@ public class Mana : MonoBehaviour
             RegetMana();
         }
 
-        // Debug.Log("Mana: " + manaValue);
+        Debug.Log("Mana: " + manaValue);
     }
 
     private void UseMana(float amount)
     {
-        if (manaValue >= amount)
+        if (manaValue > 0)
         {
             manaValue -= manaRegenRate * Time.deltaTime; // Use mana
+            // manaValue = Mathf.Max(manaValue, 0); // Clamp to 0
+            isManaEmpty = false;
+        }
+        if (manaValue < 0) {
             manaValue = Mathf.Max(manaValue, 0); // Clamp to 0
         }
 
-        if (manaValue <= 0)
+        if (manaValue <= 0 && !isManaEmpty)
         {
+            isManaEmpty = true;
+            Debug.Log("Mana is empty");
             Messenger.Broadcast(EventKey.ONBREAKBUBBLE);
+
         }
     }
 
@@ -73,4 +84,8 @@ public class Mana : MonoBehaviour
     {
         isUseMana = false;
     }
+
+    // private void OnBreakable() {
+    //     canBreakeBubble = true;
+    // }
 }
