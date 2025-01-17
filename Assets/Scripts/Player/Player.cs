@@ -91,16 +91,32 @@ public class Player : MonoBehaviour
     {
         if (other.gameObject.tag == "Water")
         {
-            Debug.Log("Underwater");
-            isUnderWater = true;
-            // SetStaticRigiBody();
-            SetKinematicRigidbody();
-            if (isFalling)StartCoroutine(MoveDownForDuration(0.5f));
+            ProcessTriggerEnterWater();
 
 
+        } else if (other.gameObject.tag == "Trap")
+        {
+            ProcessTriggerEnterTrap();
+            Debug.Log("Trap");  
         }
     }
 
+    private void ProcessTriggerEnterWater()
+    {
+        Debug.Log("Underwater");
+        isUnderWater = true;
+        // SetStaticRigiBody();
+        SetKinematicRigidbody();
+        if (isFalling) StartCoroutine(MoveDownForDuration(0.5f));
+    }
+
+    private void ProcessTriggerEnterTrap()
+    {
+        Debug.Log("Trap");
+        Time.timeScale = 0;
+        // isUnderWater = false;
+        // SetDynamicRigidbody();
+    }
     private IEnumerator MoveDownForDuration(float duration)
     {
         float elapsedTime = 0f;

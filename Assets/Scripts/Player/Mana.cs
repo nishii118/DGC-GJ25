@@ -42,7 +42,7 @@ public class Mana : MonoBehaviour
             RegetMana();
         }
 
-        Debug.Log("Mana: " + manaValue);
+        // Debug.Log("Mana: " + manaValue);
     }
 
     private void UseMana(float amount)
