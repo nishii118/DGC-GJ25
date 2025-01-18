@@ -15,12 +15,17 @@ public class EndlessTilemap : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CalculateChunkLength();
         for (int i = 0; i < tilesAhead; i++)
         {
             SpawnChunk();
         }
     }
 
+    private void CalculateChunkLength()
+    {
+        chunkLength = tilePool.GetPoolObject().transform.localScale.x;
+    }
     // Update is called once per frame
     void Update()
     {
