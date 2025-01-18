@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
     private void MovingAndJumping()
     {
         // Set movement speed based on environment
-        speedMove = isUnderWater ? 5f : 2f;
+        speedMove = isUnderWater ? 8f : 2f;
 
         // Get input values
         float vertical = Input.GetAxis("Vertical");
@@ -106,6 +106,7 @@ public class Player : MonoBehaviour
             ProcessTriggerEnterWater();
 
 
+
         }
         else if (other.gameObject.tag == "Trap")
         {
@@ -120,7 +121,12 @@ public class Player : MonoBehaviour
         isUnderWater = true;
         // SetStaticRigiBody();
         SetKinematicRigidbody();
-        if (isFalling) StartCoroutine(MoveDownForDuration(0.5f));
+        if (isFalling)
+        {
+            Messenger.Broadcast(EventKey.ONBREAKBUBBLE2);
+
+            StartCoroutine(MoveDownForDuration(0.5f));
+        }
 
     }
 
@@ -178,6 +184,7 @@ public class Player : MonoBehaviour
 
     private void ProcessSpawnBubble()
     {
+        Debug.Log("Spawn Bubble");
         bubble.SetActive(true);
     }
 }

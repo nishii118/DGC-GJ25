@@ -12,4 +12,5 @@
     ONCLICKBUTTON,
     ResumePlaying,
     ONUSEMANAFORDASH,
+    ONBREAKBUBBLE2,
 }
