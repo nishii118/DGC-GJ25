@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool canMove = true;
     [SerializeField] private float horizontalSpeed = 10f;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject bubble;
     private bool isFalling = false;
 
     // Update is called once per frame
@@ -93,6 +94,8 @@ public class Player : MonoBehaviour
         {
             isUnderWater = false;
             isFalling = true;
+
+            ProcessSpawnBubble();
         }
     }
 
@@ -170,5 +173,10 @@ public class Player : MonoBehaviour
     private void SetStaticRigiBody()
     {
         rb2d.bodyType = RigidbodyType2D.Static;
+    }
+
+    private void ProcessSpawnBubble()
+    {
+        bubble.SetActive(true);
     }
 }
