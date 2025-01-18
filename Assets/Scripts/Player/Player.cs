@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] private bool isUnderWater = true;
     [SerializeField] private bool canMove = true;
     [SerializeField] private float horizontalSpeed = 10f;
+    [SerializeField] private Animator animator;
     private bool isFalling = false;
 
     // Update is called once per frame
@@ -54,9 +55,11 @@ public class Player : MonoBehaviour
             Debug.Log("Jump");
         }
         float horizontal = isUnderWater ? 2f : 0.5f;
+        float verticalVelocity = vertical * speedMove + jump * jumpForce;
+        animator.SetFloat("Vertical", verticalVelocity);
         // Combine horizontal and vertical/jump movement
         // Debug.Log("Vertical: " + vertical + " Jump: " + jump);
-        Vector2 movement = new Vector2(horizontalSpeed, (vertical * speedMove) + (jump * jumpForce));
+        Vector2 movement = new Vector2(horizontalSpeed, verticalVelocity);
         rb2d.velocity = movement;
 
         // Uncomment if needed

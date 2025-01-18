@@ -247,6 +247,7 @@ MonoBehaviour:
   isUnderWater: 1
   canMove: 1
   horizontalSpeed: 10
+  animator: {fileID: 199321670}
 --- !u!50 &199321664
 Rigidbody2D:
   serializedVersion: 4
