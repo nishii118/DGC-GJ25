@@ -10,7 +10,7 @@ public class PanelManager : Singleton<PanelManager>
         var list = GetComponentsInChildren<Panel>();
         foreach (var panel in list)
         {
-            // Debug.Log(panel.name);
+            Debug.Log(panel.name);
             panels[panel.name] = panel;
         }
     }
