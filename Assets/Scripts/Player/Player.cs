@@ -42,15 +42,15 @@ public class Player : MonoBehaviour
     private void MovingAndJumping()
     {
         // Set movement speed based on environment
-        speedMove = isUnderWater ? 5f : 2f;
+        speedMove = isUnderWater ? 8f : 2f;
 
         // Get input values
         float vertical = Input.GetAxis("Vertical");
         float jump = isUnderWater ? Input.GetAxis("Jump") : 0f; // Jump only applies underwater
-        float horizontal = isUnderWater ? 1f : 0.5f;
+        float horizontal = isUnderWater ? 2f : 0.5f;
         // Combine horizontal and vertical/jump movement
         // Debug.Log("Vertical: " + vertical + " Jump: " + jump);
-        Vector2 movement = new Vector2(horizontal, (vertical * speedMove) + (jump * jumpForce));
+        Vector2 movement = new Vector2(10f, (vertical * speedMove) + (jump * jumpForce));
         rb2d.velocity = movement;
 
         // Uncomment if needed

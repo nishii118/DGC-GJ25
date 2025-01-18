@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Mana : MonoBehaviour
 {
     [SerializeField] float maxValueMana = 100f;
     [SerializeField] float manaRegenRate = 10f;
+    [SerializeField] private Slider slider;
     private float manaValue;
     [SerializeField] private bool isUseMana = false;
     [SerializeField] private bool isManaEmpty = false;
@@ -42,6 +44,7 @@ public class Mana : MonoBehaviour
             RegetMana();
         }
 
+        ProcessManaSlider();
         // Debug.Log("Mana: " + manaValue);
     }
 
@@ -88,4 +91,8 @@ public class Mana : MonoBehaviour
     // private void OnBreakable() {
     //     canBreakeBubble = true;
     // }
+
+    private void ProcessManaSlider() {
+        slider.value = manaValue / maxValueMana;
+    }
 }

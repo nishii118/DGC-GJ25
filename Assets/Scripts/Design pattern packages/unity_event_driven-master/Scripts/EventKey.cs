@@ -8,5 +8,7 @@
     ONREGETMANA,
     ONBREAKBUBBLE,
     ONBREAKBUBBLEABLE,
-    
+    StopPlaying,
+    ONCLICKBUTTON,
+    ResumePlaying,
 }
