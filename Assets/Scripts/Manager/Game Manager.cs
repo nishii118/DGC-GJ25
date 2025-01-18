@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
         Messenger.AddListener(EventKey.RestartGame, ReloadCurrentScene);
         Messenger.AddListener(EventKey.ENDGAME, ProcessEndGame);
         Messenger.AddListener(EventKey.STARTGAME, ProcessStartGame);
+        Messenger.AddListener(EventKey.ONGOHOME, ProcessOnGoHome);
     }
 
     void OnDisable()
@@ -17,6 +18,7 @@ public class GameManager : Singleton<GameManager>
         Messenger.RemoveListener(EventKey.RestartGame, ReloadCurrentScene);
         Messenger.RemoveListener(EventKey.ENDGAME, ProcessEndGame);
         Messenger.RemoveListener(EventKey.STARTGAME, ProcessStartGame);
+        Messenger.RemoveListener(EventKey.ONGOHOME, ProcessOnGoHome);
     }
     public void LoadSceneByName(string sceneName)
     {
@@ -36,16 +38,21 @@ public class GameManager : Singleton<GameManager>
         Time.timeScale = 1;
     }
 
-    public void ProcessEndGame()
+    private void ProcessEndGame()
     {
         PanelManager.Instance.OpenPanel("BlurPanel");
 
         PanelManager.Instance.OpenPanel("GameoverPanel");
     }
 
-    public void ProcessStartGame()
+    private void ProcessStartGame()
     {
         LoadSceneByName("Game Scene");
         // PanelManager.Instance.OpenPanel("GamePanel");
+        Time.timeScale = 1;
+    }
+
+    private void ProcessOnGoHome() {
+        LoadSceneByName("Home Scene");
     }
 }

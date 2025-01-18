@@ -14,4 +14,5 @@
     ONUSEMANAFORDASH,
     ONBREAKBUBBLE2,
     RestartGame,
+    ONGOHOME,
 }
