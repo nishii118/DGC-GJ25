@@ -1,24 +1,25 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    public static ObjectPool instance;
+    // public static ObjectPool instance;
     List<GameObject> pooledObjects;
     [SerializeField] GameObject objectToPool;
     [SerializeField] int amountToPool; 
 
     void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            //DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        // if (instance == null)
+        // {
+        //     instance = this;
+        //     //DontDestroyOnLoad(gameObject);
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
         Init();
     }
     void Init()
@@ -43,7 +44,14 @@ public class ObjectPool : MonoBehaviour
             }
         }
         GameObject tmp = Instantiate(objectToPool, transform);
+        tmp.SetActive(false);
+        pooledObjects.Add(tmp);
         amountToPool++;
         return tmp;
     }    
+
+    public void ReturnPoolObject(GameObject obj)
+    {
+        obj.SetActive(false);
+    }
 }

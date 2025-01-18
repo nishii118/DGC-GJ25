@@ -47,10 +47,10 @@ public class Player : MonoBehaviour
         // Get input values
         float vertical = Input.GetAxis("Vertical");
         float jump = isUnderWater ? Input.GetAxis("Jump") : 0f; // Jump only applies underwater
-        // float horizontal = isUnderWater ? 1f : 0.5f;
+        float horizontal = isUnderWater ? 1f : 0.5f;
         // Combine horizontal and vertical/jump movement
         // Debug.Log("Vertical: " + vertical + " Jump: " + jump);
-        Vector2 movement = new Vector2(0, (vertical * speedMove) + (jump * jumpForce));
+        Vector2 movement = new Vector2(horizontal, (vertical * speedMove) + (jump * jumpForce));
         rb2d.velocity = movement;
 
         // Uncomment if needed
