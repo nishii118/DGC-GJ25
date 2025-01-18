@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float speedMove = 5f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] Rigidbody2D rb2d;
-    [SerializeField] private Camera cam;
+    // [SerializeField] private Camera cam;
     [SerializeField] private bool isUnderWater = true;
     [SerializeField] private bool canMove = true;
     [SerializeField] private float horizontalSpeed = 10f;
@@ -72,10 +72,10 @@ public class Player : MonoBehaviour
         Vector2 movement = new Vector2(0, -1 * jumpForce);
         rb2d.velocity = movement;
     }
-    private void CameraFollowPlayer()
-    {
-        cam.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
-    }
+    // private void CameraFollowPlayer()
+    // {
+    //     // cam.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+    // }
 
     private void OnBreakBubble()
     {
@@ -110,24 +110,23 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "Trap")
         {
             ProcessTriggerEnterTrap();
-            Debug.Log("Trap");
+            // Debug.Log("Trap");
         }
     }
 
     private void ProcessTriggerEnterWater()
     {
-        Debug.Log("Underwater");
+        // Debug.Log("Underwater");
         isUnderWater = true;
         // SetStaticRigiBody();
         SetKinematicRigidbody();
         if (isFalling) StartCoroutine(MoveDownForDuration(0.5f));
 
-        ProcessSpawnBubble();
     }
 
     private void ProcessTriggerEnterTrap()
     {
-        Debug.Log("Trap");
+        // Debug.Log("Trap");
         Time.timeScale = 0;
         // isUnderWater = false;
         // SetDynamicRigidbody();

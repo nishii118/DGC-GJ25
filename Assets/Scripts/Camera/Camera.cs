@@ -1,6 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
+
 using UnityEngine;
 
 public class Camera : MonoBehaviour
@@ -15,14 +13,13 @@ public class Camera : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Process();
-    }
-
-    private void Process() {
-        if (target != null) {
-            transform.position = new Vector3(target.position.x + offSetX - 2f, transform.position.y , transform.position.z);
+        if (target != null)
+        {
+            transform.position = new Vector3(target.position.x + offSetX - 2f, transform.position.y, transform.position.z);
         }
     }
+
+
 }
