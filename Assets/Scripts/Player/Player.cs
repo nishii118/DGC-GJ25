@@ -93,6 +93,11 @@ public class Player : MonoBehaviour
         {
             isUnderWater = false;
             isFalling = true;
+<<<<<<< Updated upstream
+=======
+
+            // ProcessSpawnBubble();
+>>>>>>> Stashed changes
         }
     }
 
