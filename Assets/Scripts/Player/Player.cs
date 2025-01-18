@@ -136,6 +136,8 @@ public class Player : MonoBehaviour
         Time.timeScale = 0;
         // isUnderWater = false;
         // SetDynamicRigidbody();
+
+        Messenger.Broadcast(EventKey.ENDGAME);
     }
     private IEnumerator MoveDownForDuration(float duration)
     {

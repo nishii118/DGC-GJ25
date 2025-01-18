@@ -13,4 +13,5 @@
     ResumePlaying,
     ONUSEMANAFORDASH,
     ONBREAKBUBBLE2,
+    RestartGame,
 }
