@@ -11,4 +11,5 @@
     StopPlaying,
     ONCLICKBUTTON,
     ResumePlaying,
+    ONUSEMANAFORDASH,
 }

@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class Mana : MonoBehaviour
 {
     [SerializeField] float maxValueMana = 100f;
-    [SerializeField] float manaRegenRate = 10f;
+    [SerializeField] float manaRegenRate = 5f;
+    [SerializeField] float manaUseRate = 10f;
     [SerializeField] private Slider slider;
     private float manaValue;
     [SerializeField] private bool isUseMana = false;
@@ -22,6 +23,7 @@ public class Mana : MonoBehaviour
     {
         Messenger.AddListener(EventKey.ONUSEMANA, OnUseMana);
         Messenger.AddListener(EventKey.ONREGETMANA, OnRegetMana);
+        Messenger.AddListener<float>(EventKey.ONUSEMANAFORDASH, UseManaForDash);
         // Messenger.AddListener(EventKey.ONBREAKBUBBLEABLE, OnBreakable);
     }
 
@@ -29,6 +31,7 @@ public class Mana : MonoBehaviour
     {
         Messenger.RemoveListener(EventKey.ONUSEMANA, OnUseMana);
         Messenger.RemoveListener(EventKey.ONREGETMANA, OnRegetMana);
+        Messenger.RemoveListener<float>(EventKey.ONUSEMANAFORDASH, UseManaForDash);
         // Messenger.RemoveListener(EventKey.ONBREAKBUBBLEABLE, OnBreakable);
     }
 
@@ -37,7 +40,7 @@ public class Mana : MonoBehaviour
     {
         if (isUseMana)
         {
-            UseMana(manaRegenRate);
+            UseMana();
         }
         else
         {
@@ -48,11 +51,11 @@ public class Mana : MonoBehaviour
         // Debug.Log("Mana: " + manaValue);
     }
 
-    private void UseMana(float amount)
+    private void UseMana()
     {
         if (manaValue > 0)
         {
-            manaValue -= manaRegenRate * Time.deltaTime; // Use mana
+            manaValue -= manaUseRate * Time.deltaTime; // Use mana
             // manaValue = Mathf.Max(manaValue, 0); // Clamp to 0
             isManaEmpty = false;
         }
@@ -69,6 +72,14 @@ public class Mana : MonoBehaviour
         }
     }
 
+    private void UseManaForDash(float amount) {
+        if (manaValue > 0)
+        {
+            manaValue -= manaUseRate * Time.deltaTime + amount; // Use mana
+            // manaValue = Mathf.Max(manaValue, 0); // Clamp to 0
+            isManaEmpty = false;
+        }
+    }
     private void RegetMana()
     {
         if (manaValue < maxValueMana)

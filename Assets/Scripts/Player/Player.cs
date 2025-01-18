@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private bool isUnderWater = true;
     [SerializeField] private bool canMove = true;
+    [SerializeField] private float horizontalSpeed = 10f;
     private bool isFalling = false;
 
     // Update is called once per frame
@@ -42,15 +43,20 @@ public class Player : MonoBehaviour
     private void MovingAndJumping()
     {
         // Set movement speed based on environment
-        speedMove = isUnderWater ? 8f : 2f;
+        speedMove = isUnderWater ? 5f : 2f;
 
         // Get input values
         float vertical = Input.GetAxis("Vertical");
         float jump = isUnderWater ? Input.GetAxis("Jump") : 0f; // Jump only applies underwater
+        if (jump > 0)
+        {
+            Messenger.Broadcast(EventKey.ONUSEMANAFORDASH, 0.5f);
+            Debug.Log("Jump");
+        }
         float horizontal = isUnderWater ? 2f : 0.5f;
         // Combine horizontal and vertical/jump movement
         // Debug.Log("Vertical: " + vertical + " Jump: " + jump);
-        Vector2 movement = new Vector2(10f, (vertical * speedMove) + (jump * jumpForce));
+        Vector2 movement = new Vector2(horizontalSpeed, (vertical * speedMove) + (jump * jumpForce));
         rb2d.velocity = movement;
 
         // Uncomment if needed
@@ -94,10 +100,11 @@ public class Player : MonoBehaviour
             ProcessTriggerEnterWater();
 
 
-        } else if (other.gameObject.tag == "Trap")
+        }
+        else if (other.gameObject.tag == "Trap")
         {
             ProcessTriggerEnterTrap();
-            Debug.Log("Trap");  
+            Debug.Log("Trap");
         }
     }
 
@@ -120,7 +127,7 @@ public class Player : MonoBehaviour
     private IEnumerator MoveDownForDuration(float duration)
     {
         float elapsedTime = 0f;
-        float initialSpeed = 5f; // Tốc độ ban đầu
+        float initialSpeed = 8f; // Tốc độ ban đầu
         float targetSpeed = 0f;         // Tốc độ cuối cùng (chậm dần về 0)
 
         while (elapsedTime < duration)
@@ -131,7 +138,7 @@ public class Player : MonoBehaviour
             float currentSpeed = Mathf.Lerp(initialSpeed, targetSpeed, elapsedTime / duration);
 
             // Áp dụng vận tốc cho Rigidbody2D
-            rb2d.velocity = new Vector2(0, -currentSpeed);
+            rb2d.velocity = new Vector2(horizontalSpeed, -currentSpeed);
 
             yield return null; // Chờ tới frame tiếp theo
         }
