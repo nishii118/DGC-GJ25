@@ -28,7 +28,7 @@ public class Panel : MonoBehaviour
         // }
     }
 
-    // public virtual void ClickButton() {
-    //     Messenger.Broadcast(EventKey.ONCLICKBUTTON, "Click");
-    // }
+    public virtual void ClickButton() {
+        Messenger.Broadcast(EventKey.ONCLICKBUTTON, "Click");
+    }
 }

@@ -32,6 +32,7 @@ public class Bubble : MonoBehaviour
         Debug.Log("Process 1");
         isAlive = false;
         animator.SetBool("isAlive", isAlive);
+        Messenger.Broadcast<string>(EventKey.ONBREAKBUBBLESFX, "Break Bubble");
         StartCoroutine(DisableBubble());
     }
 

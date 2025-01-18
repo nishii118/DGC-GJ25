@@ -96,6 +96,11 @@ public class Player : MonoBehaviour
             isFalling = true;
 
             ProcessSpawnBubble();
+
+
+            // music 
+            Messenger.Broadcast<string>(EventKey.ONEXITWATERMUSIC, "Overwater Music");
+            Messenger.Broadcast<string>(EventKey.INBUBBLESFX, "In Bubble");
         }
     }
 
@@ -117,6 +122,9 @@ public class Player : MonoBehaviour
 
     private void ProcessTriggerEnterWater()
     {
+        //sfx
+        Messenger.Broadcast<string>(EventKey.ONENTERWATERSFX, "Drink");
+        Messenger.Broadcast<string>(EventKey.ONWATERMUSIC, "Underwater Music");
         // Debug.Log("Underwater");
         isUnderWater = true;
         // SetStaticRigiBody();
