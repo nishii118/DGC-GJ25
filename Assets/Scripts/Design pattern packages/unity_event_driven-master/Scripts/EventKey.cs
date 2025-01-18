@@ -21,4 +21,9 @@
     ONEXITWATERMUSIC,
     INBUBBLESFX,
     ONHOMEMUSIC,
+    ADDSCORE,
+    UPDATEHIGHTSCORE,
+    ONRESETCURRENTSCORE,
+    OnChangeHighScore,
+    OnChangeScore,
 }

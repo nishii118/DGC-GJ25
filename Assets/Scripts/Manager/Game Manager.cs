@@ -36,6 +36,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log(currentScene.name);
         SceneManager.LoadScene(currentScene.name);
         Time.timeScale = 1;
+
+        Messenger.Broadcast(EventKey.ONRESETCURRENTSCORE);
     }
 
     private void ProcessEndGame()
