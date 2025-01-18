@@ -121,6 +121,8 @@ public class Player : MonoBehaviour
         // SetStaticRigiBody();
         SetKinematicRigidbody();
         if (isFalling) StartCoroutine(MoveDownForDuration(0.5f));
+
+        ProcessSpawnBubble();
     }
 
     private void ProcessTriggerEnterTrap()

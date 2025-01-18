@@ -13,6 +13,7 @@ public class WaveLoop : MonoBehaviour
     {
         // Lấy chiều dài của sóng từ SpriteRenderer
         waveLength = wave1.GetComponent<SpriteRenderer>().bounds.size.x;
+        // Debug.Log("Wave length: " + waveLength);
     }
 
     void Update()
@@ -20,6 +21,7 @@ public class WaveLoop : MonoBehaviour
         // Kiểm tra nếu player đã đi qua toàn bộ wave1
         if (player.position.x > wave1.transform.position.x + waveLength / 2 + 5f)
         {
+            // Debug.Log("Player passed wave1");
             ResetWavePosition(wave1, wave2);
         }
 
