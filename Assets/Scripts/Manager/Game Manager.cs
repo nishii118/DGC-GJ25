@@ -9,12 +9,14 @@ public class GameManager : Singleton<GameManager>
     {
         Messenger.AddListener(EventKey.RestartGame, ReloadCurrentScene);
         Messenger.AddListener(EventKey.ENDGAME, ProcessEndGame);
+        Messenger.AddListener(EventKey.STARTGAME, ProcessStartGame);
     }
 
     void OnDisable()
     {
         Messenger.RemoveListener(EventKey.RestartGame, ReloadCurrentScene);
         Messenger.RemoveListener(EventKey.ENDGAME, ProcessEndGame);
+        Messenger.RemoveListener(EventKey.STARTGAME, ProcessStartGame);
     }
     public void LoadSceneByName(string sceneName)
     {
@@ -39,5 +41,11 @@ public class GameManager : Singleton<GameManager>
         PanelManager.Instance.OpenPanel("BlurPanel");
 
         PanelManager.Instance.OpenPanel("GameoverPanel");
+    }
+
+    public void ProcessStartGame()
+    {
+        LoadSceneByName("Game Scene");
+        // PanelManager.Instance.OpenPanel("GamePanel");
     }
 }
