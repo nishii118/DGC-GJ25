@@ -49,10 +49,12 @@ public class GameManager : Singleton<GameManager>
     {
         LoadSceneByName("Game Scene");
         // PanelManager.Instance.OpenPanel("GamePanel");
+        Messenger.Broadcast<string>(EventKey.ONWATERMUSIC, "Underwater Music");
         Time.timeScale = 1;
     }
 
     private void ProcessOnGoHome() {
         LoadSceneByName("Home Scene");
+        Messenger.Broadcast<string>(EventKey.ONHOMEMUSIC, "Home Music");
     }
 }

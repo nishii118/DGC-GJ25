@@ -29,6 +29,7 @@ public class AudioManager : Singleton<AudioManager>
 
         Messenger.AddListener<string>(EventKey.ONEXITWATERMUSIC, PlayMusic);
         Messenger.AddListener<string>(EventKey.INBUBBLESFX, PlaySFX);
+        Messenger.AddListener<string>(EventKey.ONHOMEMUSIC, PlayMusic);
     }
 
     private void OnDisable()
@@ -41,6 +42,7 @@ public class AudioManager : Singleton<AudioManager>
         Messenger.RemoveListener<string>(EventKey.ONENTERWATERSFX, PlaySFX);
         Messenger.RemoveListener<string>(EventKey.ONEXITWATERMUSIC, PlayMusic);
         Messenger.RemoveListener<string>(EventKey.INBUBBLESFX, PlaySFX);
+        Messenger.RemoveListener<string>(EventKey.ONHOMEMUSIC, PlayMusic);
     }
 
     // public bool GetToggleState(String key)
