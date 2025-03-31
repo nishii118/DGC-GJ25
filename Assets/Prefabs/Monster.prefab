@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5478674654410206430}
   - component: {fileID: 1484864771325081597}
   - component: {fileID: 9158989704600272701}
+  - component: {fileID: -3719307152924907028}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Trap
@@ -28,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7051564918623336610}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 6.96, y: -3.75, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_Sprite: {fileID: 1452235042, guid: 47a4ae7b733b94a418565e1b0bcb4a72, type: 3}
   m_Color: {r: 0.9433962, g: 0.9433962, b: 0.9433962, a: 1}
   m_FlipX: 0
@@ -119,18 +120,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.59106565}
+  m_Offset: {x: 0.0069303513, y: 0.03093195}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.92, y: 3.92}
+    oldSize: {x: 1.96, y: 1.96}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.5022607}
+  m_Size: {x: 1.9286642, y: 1.7462559}
   m_EdgeRadius: 0
 --- !u!114 &1484864771325081597
 MonoBehaviour:
@@ -139,7 +140,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7051564918623336610}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 832c3d8db016ab044bf4b77078a845ba, type: 3}
   m_Name: 
@@ -173,3 +174,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-3719307152924907028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7051564918623336610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17e937b8f0ba6c64381fd2c153af2968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  upperPoint: {fileID: 0}
+  lowerPoint: {fileID: 0}
+  speed: 3

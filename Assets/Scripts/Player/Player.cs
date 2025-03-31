@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     [SerializeField] private float horizontalSpeed = 10f;
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject bubble;
+    [SerializeField] private float levelUpDistance = 50f;
+    [SerializeField] private float distanceTraveled = 0f;
+    private int level = 1;  
     private bool isFalling = false;
 
     // Update is called once per frame
@@ -40,8 +43,19 @@ public class Player : MonoBehaviour
         }
         // if (isFalling) MovingDown();
         // MovingAndJumping();
+
+        OnUpdateLevel();
     }
 
+    void OnUpdateLevel() {
+        distanceTraveled += horizontalSpeed * Time.deltaTime;
+
+        if (distanceTraveled >= level * levelUpDistance) {
+            level++;
+            // Messenger.Broadcast<int>(EventKey.ONLEVELUP, level);
+            horizontalSpeed += 1f;
+        }
+    }
     private void MovingAndJumping()
     {
         // Set movement speed based on environment
@@ -116,7 +130,7 @@ public class Player : MonoBehaviour
         else if (other.gameObject.tag == "Trap")
         {
             ProcessTriggerEnterTrap();
-            // Debug.Log("Trap");
+            Debug.Log("Trap");
         }
     }
 
