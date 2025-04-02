@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
+    
     [SerializeField] private float speedMove = 5f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] Rigidbody2D rb2d;
@@ -32,7 +34,11 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        if (canMove) MovingAndJumping();
+        // if (canMove) MovingAndJumping();
+        // if (canMove)
+        // {
+        //     Moving();
+        // }
         if (isUnderWater)
         {
             Messenger.Broadcast(EventKey.ONREGETMANA);
@@ -47,6 +53,23 @@ public class Player : MonoBehaviour
         OnUpdateLevel();
     }
 
+    void LateUpdate()
+    {
+        InputControl();
+        
+    }
+    void InputControl() {
+        if (Input.touchCount > 0) {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)  {
+                MovingWhenTouched();
+                Debug.Log("Touch began at: " + touch.position);
+            } 
+        } else {
+            MovingWhenUnTouched();
+        }
+    }
     void OnUpdateLevel() {
         distanceTraveled += horizontalSpeed * Time.deltaTime;
 
@@ -81,6 +104,19 @@ public class Player : MonoBehaviour
         // CameraFollowPlayer();
     }
 
+    private void MovingWhenTouched() {
+        speedMove = isUnderWater ? 6f : 2f;
+        animator.SetFloat("Vertical", speedMove);
+        Vector2 movement = new Vector2(horizontalSpeed, speedMove);
+        rb2d.velocity = movement;
+    }
+    
+    private void MovingWhenUnTouched() {
+        speedMove = isUnderWater ? 4f : 2f;
+        animator.SetFloat("Vertical", speedMove);
+        Vector2 movement = new Vector2(horizontalSpeed, -1 * speedMove);
+        rb2d.velocity = movement;
+    }
     private void MovingDown()
     {
         Vector2 movement = new Vector2(0, -1 * jumpForce);
